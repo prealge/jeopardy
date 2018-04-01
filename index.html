@@ -294,14 +294,14 @@ Continue
     document.getElementById("jeopardy-top").onclick = function() {
       if (this.style.height == "15%") {
         this.style.height = "100%";
-        for (var i = 0; i < this.getElementsByTagName("span").length; i++) {
-          this.getElementsByTagName("span")[i].style.transform = "translateY(-1000%)";
+        for (var i = 0; i < this.getElementsByTagName("div").length; i++) {
+          this.getElementsByTagName("div")[i].style.transform = "translateY(-1000%)";
         }
         this.getElementsByTagName("button")[0].style.transform = "translateY(0px)";
       } else {
         this.style.height = "15%";
-        for (var i = 0; i < this.getElementsByTagName("span").length; i++) {
-          this.getElementsByTagName("span")[i].style.transform = "";
+        for (var i = 0; i < this.getElementsByTagName("div").length; i++) {
+          this.getElementsByTagName("div")[i].style.transform = "";
         }
         this.getElementsByTagName("button")[0].style.transform = "translateY(-1000px)";
       }
@@ -387,6 +387,8 @@ Continue
      border: none; 
      border-radius: 5px; 
      outline: none;
+     min-width: 50px;
+     min-height: 25px;
   }
 
 </style>
