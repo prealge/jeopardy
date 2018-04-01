@@ -256,9 +256,9 @@ Continue
     function newCategory(text, left) {
       var newCategory = document.createElement('div');
       var newText = document.createElement('span');
-      newCategory.style = 'width: ' + 100 / categories.length + '%; text-align: center; position: absolute; top: 0%; left: ' + left + '%; display: table;';
+      newCategory.style = 'width: ' + 100 / categories.length + '%; text-align: center; position: absolute; top: 0%; left: ' + left + '%; display: table; height: 100%;';
       newText.innerHTML = text;
-      newText.style = 'display: table-cell; vertical-align: middle; color: navy;';
+      newText.style = 'display: table-cell; vertical-align: middle; color: navy; user-select: none;';
       document.getElementById('jeopardy-top').appendChild(newCategory);
       newCategory.appendChild(newText);
     }
