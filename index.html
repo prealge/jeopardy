@@ -1,0 +1,396 @@
+<!DOCTYPEhtml>
+<head>
+  <title>Jeopardy</title>
+</head>
+<html>
+  <body style='background-color: lightblue;'>
+  <div style='height: 15%; width: 100%; position: absolute; background-color: lightblue; left: 0px; top: 0px; display: none; z-index: 20;' id='jeopardy-top'>
+  <center><button>
+      Save
+    </button></center>
+  </div>
+  <div style='background-color: navy; width: 100%; margin: 0px; position: absolute; left: 0px; top: 15%; height: 85%; display: none;' id='container'>
+  </div>
+  <center>
+    <h1 style='color: navy; text-align: center;'>
+      JEOPARDY
+    </h1>
+    <a href='#' style='color: navy;' onclick='newGame()'>
+      New Game
+    </a>
+    <p style='color: navy'>
+      or
+    </p>
+    <a href='#' style='color: navy;' onclick='loadGame(prompt("code"))'>
+      Load Game
+    </a>
+    <input placeholder='number of hundreds (rows)' style='display: none;'>
+    <a href='#' style='color: navy; display: none;' onclick='continueToCategories()'>
+      Continue
+    </a>
+    <p style='display: none; color: navy;'>
+      Click the categories topbar to open mobile menu.<br><br>Press the 'S' key, and copy the link to save your Jeopardy game.
+    </p>
+  </center>
+
+  <center id='category-inputs'>
+
+  </center>
+
+  <center>
+    <a href='#' style='color: navy; display: none;' onclick='addCategoryInput()'>
+Add Category
+</a><br><a href='#' style='color: navy; display: none;' onclick='continueToQuestions()'>
+Continue
+</a>
+    <a style='display: none; color: navy;' onclick='playNewJeopardy()'>
+      Continue
+    </a>
+  </center>
+
+</body>
+
+<script>
+  function newRow(ths, where) {
+    var newTr = document.createElement('tr');
+    where.appendChild(newTr);
+    for (var i = 0; i < ths; i++) {
+      var newTh = document.createElement('th');
+      newTh.innerHTML = 'Question';
+      newTr.appendChild(newTh);
+    }
+  }
+
+  function newGame() {
+    document.getElementsByTagName('a')[0].style.display = 'none';
+    document.getElementsByTagName('a')[1].style.display = 'none';
+    document.getElementsByTagName('p')[0].style.display = 'none';
+    document.getElementsByTagName('a')[2].style.display = 'block';
+    document.getElementsByTagName('input')[0].style.display = 'block';
+    document.getElementsByTagName('input')[0].focus();
+    document.getElementsByTagName('input')[0].onchange = continueToCategories;
+  }
+
+  function continueToCategories() {
+    document.getElementsByTagName('a')[0].style.display = 'none';
+    document.getElementsByTagName('a')[1].style.display = 'none';
+    document.getElementsByTagName('p')[0].style.display = 'none';
+    document.getElementsByTagName('a')[2].style.display = 'none';
+    document.getElementsByTagName('input')[0].style.display = 'none';
+    document.getElementsByTagName('a')[3].style.display = 'block';
+    document.getElementsByTagName('a')[4].style.display = 'block';
+  }
+
+  function continueToQuestions() {
+    document.getElementsByTagName('a')[0].style.display = 'none';
+    document.getElementsByTagName('a')[1].style.display = 'none';
+    document.getElementsByTagName('p')[0].style.display = 'none';
+    document.getElementsByTagName('a')[2].style.display = 'none';
+    document.getElementsByTagName('a')[3].style.display = 'none';
+    document.getElementsByTagName('a')[4].style.display = 'none';
+    for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
+      document.getElementsByTagName('input')[i].style.display = 'none';
+    }
+    var table_center = document.createElement('center');
+    var table = document.createElement('table');
+    document.body.appendChild(table_center);
+    table_center.appendChild(table);
+    table.contentEditable = 'true';
+    var unsplitCategories = '';
+    var topTr = document.createElement('tr');
+    topTr.contentEditable = 'false';
+    table.appendChild(topTr);
+    for (var i = 0; i < document.getElementsByClassName('categoryInput').length; i++) {
+      if (i == 0) {
+        unsplitCategories += document.getElementsByClassName('categoryInput')[i].value;
+      } else {
+        unsplitCategories += 'kuyearfg' + document.getElementsByClassName('categoryInput')[i].value;
+      }
+      var newTopTh = document.createElement('th');
+      newTopTh.innerHTML = document.getElementsByClassName('categoryInput')[i].value;
+      newTopTh.style = 'border: none; font-weight: bold;';
+      topTr.appendChild(newTopTh);
+    }
+    var splitCategories = unsplitCategories.split('kuyearfg');
+    for (var i = 0; i < document.getElementsByTagName('input')[0].value; i++) {
+      newRow(splitCategories.length, table);
+    }
+    var newA = document.createElement('a');
+    newA.style = 'color: navy;';
+    newA.innerHTML = 'Continue';
+    newA.onclick = continueToInstructions;
+    table_center.appendChild(newA);
+  }
+
+  function continueToInstructions() {
+    for (var i = 0; i < document.getElementsByTagName('table').length; i++) {
+      document.getElementsByTagName('table')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('tr').length; i++) {
+      document.getElementsByTagName('tr')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('th').length; i++) {
+      document.getElementsByTagName('th')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('p').length; i++) {
+      document.getElementsByTagName('p')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('a').length; i++) {
+      document.getElementsByTagName('a')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
+      document.getElementsByTagName('input')[i].style.display = 'none';
+    }
+    document.getElementsByTagName('p')[1].style.display = 'block';
+    document.getElementsByTagName('a')[5].style.display = 'block';
+  }
+
+  function addCategoryInput() {
+    var newInput = document.createElement('input');
+    newInput.className = 'categoryInput';
+    newInput.placeholder = 'New Category';
+    document.getElementById('category-inputs').appendChild(newInput);
+    newInput.focus();
+    newInput.oncontextmenu = function(e) {
+      e = e || window.event;
+      e.preventDefault();
+      var category = this;
+      var category_cmenu = document.createElement('a');
+      category_cmenu.onclick = function() {
+        category.parentNode.removeChild(category);
+        category_cmenu.parentNode.removeChild(category_cmenu);
+      };
+      category_cmenu.innerHTML = 'Remove';
+      category_cmenu.style = 'position: fixed; left: ' + e.clientX + 'px; top: ' + e.clientY + 'px; color: navy; background-color: white; margin: 0px; padding: 5px; border: 1px solid lightgray;';
+      document.onclick = function() {
+        category_cmenu.parentNode.removeChild(category_cmenu);
+      };
+      document.body.appendChild(category_cmenu);
+    };
+  }
+
+  function playNewJeopardy() {
+    var unsplitCategories = '';
+    var unsplitQuestions = '';
+    for (var i = 0; i < document.getElementsByClassName('categoryInput').length; i++) {
+      if (i == 0) {
+        unsplitCategories += document.getElementsByClassName('categoryInput')[i].value;
+      } else {
+        unsplitCategories += 'kuyearfg' + document.getElementsByClassName('categoryInput')[i].value;
+      }
+    }
+    for (var i = unsplitCategories.split('kuyearfg').length; i < document.getElementsByTagName('th').length; i++) {
+      if (i == unsplitCategories.split('kuyearfg').length) {
+        unsplitQuestions += document.getElementsByTagName('th')[i].innerHTML;
+      } else {
+        unsplitQuestions += 'kuyearfg' + document.getElementsByTagName('th')[i].innerHTML;
+      }
+    }
+    playJeopardy(unsplitCategories.split('kuyearfg'), document.getElementsByTagName('input')[0].value, unsplitQuestions.split('kuyearfg'));
+  }
+
+  function loadGame(code) {
+    playJeopardy(atob(code).split('``````')[0].split('````'), atob(code).split('``````')[1], atob(code).split('``````')[2].split('````'));
+  }
+
+  function playJeopardy(categories, hundreds, questions) {
+    for (var i = 0; i < document.getElementsByTagName('table').length; i++) {
+      document.getElementsByTagName('table')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('tr').length; i++) {
+      document.getElementsByTagName('tr')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('th').length; i++) {
+      document.getElementsByTagName('th')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('p').length; i++) {
+      document.getElementsByTagName('p')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('a').length; i++) {
+      document.getElementsByTagName('a')[i].style.display = 'none';
+    }
+    for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
+      document.getElementsByTagName('input')[i].style.display = 'none';
+    }
+
+    var container = document.getElementById('container');
+
+    container.style.display = 'block';
+    document.getElementById('jeopardy-top').style.display = 'table';
+
+    function changeCardText(card) {
+      card.getElementsByTagName('span')[0].innerHTML = 'ti';
+    }
+
+    function newCard(left, top, number, question) {
+      var newCard = document.createElement('div');
+      var newText = document.createElement('span');
+      var newNumber = document.createElement('span');
+      newCard.className = 'jeopardyCard';
+      newCard.style = 'width: ' + (100 / categories.length) * 0.9 + '%; height: ' + ((100 / hundreds) * 0.9) * 0.85 + '%; margin: ' + ((85 / hundreds) * 0.04) + '% ' + ((100 / categories.length) * 0.04) + '%; top: ' + (top + 15) + '%; left:' + left + '%; z-index: 0;';
+      newCard.onclick = function() {
+        if (this.style.width == '96%') {
+          this.style.transform = 'translateX(-200%)'
+        } else {
+          this.style.top = '2%';
+          this.style.left = '2%';
+          this.style.margin = '0px';
+          this.style.width = '96%';
+          this.style.height = '96%';
+          this.style.zIndex = '5000';
+          this.style.transform = 'rotateY(180deg)';
+          this.style.border = '5px solid gray';
+          this.getElementsByTagName('span')[0].style.display = 'table-cell';
+          this.getElementsByTagName('span')[1].style.display = 'none';
+        }
+      };
+      newNumber.innerHTML = number;
+      newText.innerHTML = question;
+      newText.style = 'display: none; vertical-align: middle; transform: rotateY(180deg);';
+      newNumber.style = 'display: table-cell; vertical-align: middle;';
+      container.appendChild(newCard);
+      newCard.appendChild(newText);
+      newCard.appendChild(newNumber);
+    }
+
+    function newCategory(text, left) {
+      var newCategory = document.createElement('div');
+      var newText = document.createElement('span');
+      newCategory.style = 'width: ' + 100 / categories.length + '%; text-align: center; position: absolute; top: 0%; left: ' + left + '%; display: table;';
+      newText.innerHTML = text;
+      newText.style = 'display: table-cell; vertical-align: middle; color: navy;';
+      document.getElementById('jeopardy-top').appendChild(newCategory);
+      newCategory.appendChild(newText);
+    }
+
+    for (var i = 0; i < categories.length; i++) {
+      newCategory(categories[i], i * 100 / categories.length);
+      for (var j = 0; j < hundreds; j++) {
+        newCard(i * (100 / categories.length), j * (85 / hundreds), (j * 100) + 100, questions[categories.length * j + i]);
+      }
+    }
+
+
+    function save() {
+      var unsplitCategories = '';
+      var unsplitQuestions = '';
+      for (var i = 0; i < categories.length; i++) {
+        if (i == 0) {
+          unsplitCategories += categories[i];
+        } else {
+          unsplitCategories += '````' + categories[i];
+        }
+      }
+      for (var i = 0; i < questions.length; i++) {
+        if (i == 0) {
+          unsplitQuestions += questions[i];
+        } else {
+          unsplitQuestions += '````' + questions[i];
+        }
+      }
+      alert(btoa(unsplitCategories + '``````' + hundreds + '``````' + unsplitQuestions));
+    }
+
+    document.getElementById("jeopardy-top").onclick = function() {
+      if (this.style.height == "15%") {
+        this.style.height = "100%";
+        for (var i = 0; i < this.getElementsByTagName("span").length; i++) {
+          this.getElementsByTagName("span")[i].style.transform = "translateY(-1000%)";
+        }
+        this.getElementsByTagName("button")[0].style.transform = "translateY(0px)";
+      } else {
+        this.style.height = "15%";
+        for (var i = 0; i < this.getElementsByTagName("span").length; i++) {
+          this.getElementsByTagName("span")[i].style.transform = "";
+        }
+        this.getElementsByTagName("button")[0].style.transform = "translateY(-1000px)";
+      }
+    };
+    
+    document.getElementById("jeopardy-top").getElementsByTagName("button")[0].onclick = save;
+
+    document.onkeypress = function(event) {
+      var e = event.which || event.keyCode;
+      if (e == 115) {
+        save();
+      }
+    };
+  }
+
+</script>
+<style>
+  .jeopardyCard {
+    border: 2px solid gray;
+    position: fixed;
+    background-color: lightblue;
+    border-radius: 5px;
+    text-align: center;
+    color: gray;
+    user-select: none;
+    display: table;
+    -webkit-transition: top 1s, left 1s, width 1s, height 1s, transform 1s, border 1s;
+    transition: top 1s, left 1s, width 1s, height 1s, transform 1s, border 1s;
+    box-sizing: border-box;
+  }
+
+  #jeopardy-top {
+    -webkit-transition: height 1s;
+    transition: height 1s;
+  }
+
+  input {
+    width: 50%;
+    text-align: center;
+    outline: none;
+    margin: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    color: navy;
+    -webkit-transition: border 1s;
+  }
+
+  input:focus {
+    width: 50%;
+    text-align: center;
+    outline: none;
+    margin: 5px;
+    border-color: navy;
+  }
+
+  th {
+    color: gray;
+    border: 1px solid gray;
+    margin: 0px;
+  }
+
+  tr {
+    margin: 0px;
+  }
+
+  table {
+    border-radius: 5px;
+    outline: none;
+  }
+
+  span {
+    -webkit-transition: transform 1s;
+    transition: transform 1s;
+  }
+  
+  button {
+     -webkit-transition: transform 1s;
+     transition: transform 1s;
+     position: fixed; 
+     transform: translateY(-1000px); 
+     top: 50%; color: lightblue; 
+     background-color: navy; 
+     border: none; 
+     border-radius: 5px; 
+     outline: none;
+  }
+
+</style>
+
+
+
+</html>
